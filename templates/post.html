@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    
+    <form method="post" action="/post_user">
+        <label>Post:</label>
+        <input id="clipping" name="clipping" type="text"/>
+        <input type="submit"/> 
+    </form>
+
+    {% for clipping in myClippings %}
+        <li> {{myClippings.clipping}} </li>
+    {% endfor %}
+
+    {{oneItem.clipping}}
+</body>
+</html>
