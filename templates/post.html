@@ -7,7 +7,7 @@
 </head>
 <body>
     
-    <form method="post" action="/post_user">
+    <form method="post" action="/post">
         <label>Post:</label>
         <input id="clipping" name="clipping" type="text"/>
         <input type="submit"/> 
@@ -17,6 +17,6 @@
         <li> {{myClippings.clipping}} </li>
     {% endfor %}
 
-    {{oneItem.clipping}}
+   # {{oneItem.clipping}}
 </body>
 </html>

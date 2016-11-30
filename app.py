@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:maximus14@localhost/deadBox' #postgresql://username(db):password@urlAddress/DBname
 app.debug = True
 db = SQLAlchemy(app)
-db.create_all()
+
 
 class Clipboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,11 +30,11 @@ def index():
     oneItem = Clipboard.query.filter_by(userId=0).first()
     return render_template('post.html', myClippings=myClippings, oneItem=oneItem)
 
-@app.route('/post_user', methods=['POST'])
-def post_user():
-    clip = Clipboard(request.form['clipping']) 
-    clip.userId = 0
-    clip.time = datetime.now()
+@app.route('/post', methods=['POST'])
+def post():
+    clip = Clipboard(0,request.form['clipping'],datetime.now()) 
+    #clip.userId = 0
+    #clip.time = datetime.now()
     db.session.add(clip)
     db.session.commit()
     return redirect(url_for('index'))
