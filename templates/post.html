@@ -4,6 +4,23 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 10%;
+        }
+
+        td, th {
+            border: 1px solid rgb(0, 0, 0);
+            text-align: left;
+            padding: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
     
@@ -13,10 +30,18 @@
         <input type="submit"/> 
     </form>
 
+    <table>
+        <tr>
+            <th>Modified</th>
+            <th>Clipping</th>
+        </tr>
     {% for clipping in myClippings %}
-        <li> {{myClippings.clipping}} </li>
+        <tr>
+            <td> {{clipping.time[:16]}}</td>
+            <td> {{clipping.clipping}} </td>
+        </tr>
     {% endfor %}
 
-   # {{oneItem.clipping}}
+    <!-- {{oneItem.clipping}} -->
 </body>
 </html>

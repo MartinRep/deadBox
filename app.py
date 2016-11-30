@@ -22,11 +22,12 @@ class Clipboard(db.Model):
         self.time = time
 
     def __repr__(self):
-        return '<Clipboard %r>' % self.clipping
+        return '<%r>' % self.clipping
 
 @app.route('/')
 def index():
     myClippings = Clipboard.query.all()
+    print(myClippings)
     oneItem = Clipboard.query.filter_by(userId=0).first()
     return render_template('post.html', myClippings=myClippings, oneItem=oneItem)
 
