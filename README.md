@@ -48,7 +48,12 @@ The app should run on local host port 5000:
 > http://127.0.0.1:5000/
 
 You need to register to start using DeadBox. Simply enter your Email and confirm password.
+You will receive welcoming email. I am using Flask security project for logging in. You can config content
+of confirmation mail. Also I didn't change css for login and registration templates, which can be changed to fit more with
+current bootstrap template used.
 Now you can add, delete, copy your clipboads across platforms.
+
+CLipboard list is 
 
 
 
