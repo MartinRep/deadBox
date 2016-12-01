@@ -5,6 +5,7 @@ from datetime import datetime
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required
 from flask_mail import Mail
 from flask_login import current_user
+import json
 
 
 
@@ -67,7 +68,6 @@ def create():
 @app.route('/')
 @login_required
 def index():
-    # myClippings = Clipboard.query.all()
     actUser= current_user.id
     myClippings = Clipboard.query.filter_by(userId=actUser).all()
     return render_template('post.html', myClippings=myClippings)
@@ -83,10 +83,18 @@ def post():
 @app.route('/profile/<email>')
 @login_required
 def profile(email):
-    
     user = User.query.filter_by(email=email).first()
     return render_template('profile.html', user=user)
 
+
+@app.route('/delpost', methods=['POST'])
+@login_required
+def delPost():
+    id = request.form['postID']
+    delPost = Clipboard.query.filter_by(id=id).first()
+    db.session.delete(delPost)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":  #make sure the app will be run on it's own, not as API
     

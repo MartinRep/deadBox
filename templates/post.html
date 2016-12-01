@@ -42,6 +42,7 @@
     <br></br>
     <table id="my-table">
         <tr>
+            <th>Delete</th>
             <th>Copy</th>
             <th>Modified</th>
             <th>Clipping</th>
@@ -49,6 +50,11 @@
     {% for clipping in myClippings %}
         <!-- Trigger -->
         <tr>
+            <td>
+                <button class="button" onclick=delPost("{{clipping.id}}")>
+                    Delete
+                </button>
+            </td>
             <td>
                 <button class="copy-button" data-clipboard-action="copy" data-clipboard-text={{clipping.clipping}} onclick=copyToClip("{{clipping.clipping}}")>
                     Copy to clipboard
@@ -61,22 +67,51 @@
     </table>
 
     <script src="{{url_for('static',filename='clipboard.min.js') }}"></script>
+    <script src="{{url_for('static',filename='jquery-3.1.1.min.js') }}"></script>
     <script type="text/javascript">
 
-      
+        var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        
         function copyToClip(clipping) {
             var clipboard = new Clipboard('.copy-button',clipping
             );}
 
-        function myFunc(vars) {
-            return vars
+        function post(path, params, method) {
+            method = method || "post"; // Set method to post by default if not specified.
+
+            // The rest of this code assumes you are not using a library.
+            // It can be made less wordy if you use one.
+            var form = document.createElement("form");
+            form.setAttribute("method", method);
+            form.setAttribute("action", path);
+
+            for(var key in params) {
+                if(params.hasOwnProperty(key)) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    //hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", params);
+
+                    form.appendChild(hiddenField);
+                }
+            }
+            document.body.appendChild(form);
+            form.submit();
         }
-
- 
-
-       
-
-
+        
+        function delPost(id)
+        {
+            var form = document.createElement("form");
+            var hiddenField = document.createElement("input");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/delpost");
+            hiddenField.setAttribute("name", "postID");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("value", id);
+            form.appendChild(hiddenField);
+            document.body.appendChild(form);
+            form.submit();
+        }
     </script>
 </body>
 </html>
