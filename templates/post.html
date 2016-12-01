@@ -42,22 +42,33 @@
         <!-- Trigger -->
         <tr>
             <td>
-                <button class="copy-button" data-clipboard-action="copy" data-clipboard-text={{clipping.clipping}} onclick=copyToClip("{{clipping.clipping}}");>
+                <button class="copy-button" data-clipboard-action="copy" data-clipboard-text={{clipping.clipping}} onclick=copyToClip("{{clipping.clipping}}")>
                     Copy to clipboard
                 </button>
             </td>
             <td> {{clipping.time[:16]}}</td>
-            <td id="{{clipping.id}}"> Test - {{clipping.clipping}} </td>
+            <td id="{{clipping.id}}">{{clipping.clipping}}</td>
         </tr>
     {% endfor %}
     </table>
-    <script src="../static/js/clipboard.min.js"></script>
+
+    <script src="{{url_for('static',filename='clipboard.min.js') }}"></script>
     <script type="text/javascript">
 
+      
         function copyToClip(clipping) {
-            var clipboard = new Clipboard('.copy-button', clipping);
+            var clipboard = new Clipboard('.copy-button',clipping
+            );}
+
+        function myFunc(vars) {
+            return vars
         }
+
+ 
+
        
+
+
     </script>
 </body>
 </html>
