@@ -53,7 +53,9 @@ of confirmation mail. Also I didn't change css for login and registration templa
 current bootstrap template used.
 Now you can add, delete, copy your clipboads across platforms.
 
-CLipboard list is 
+CLipboard list is unique for each user.
+
+*This is just a simple single page application to demonstate flask ability to make comunication easier betwen fron and back end.*
 
 
 
