@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from datetime import datetime
 
 
@@ -27,7 +27,6 @@ class Clipboard(db.Model):
 @app.route('/')
 def index():
     myClippings = Clipboard.query.all()
-    print(myClippings)
     oneItem = Clipboard.query.filter_by(userId=0).first()
     return render_template('post.html', myClippings=myClippings, oneItem=oneItem)
 
