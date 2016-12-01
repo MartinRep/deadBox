@@ -70,7 +70,7 @@ def create():
 def index():
     actUser= current_user.id
     myClippings = Clipboard.query.filter_by(userId=actUser).all()
-    return render_template('post.html', myClippings=myClippings)
+    return render_template('index.html', myClippings=myClippings)
 
 @app.route('/post', methods=['POST'])
 def post():
@@ -80,13 +80,6 @@ def post():
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/profile/<email>')
-@login_required
-def profile(email):
-    user = User.query.filter_by(email=email).first()
-    return render_template('profile.html', user=user)
-
-
 @app.route('/delpost', methods=['POST'])
 @login_required
 def delPost():
@@ -95,6 +88,14 @@ def delPost():
     db.session.delete(delPost)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 if __name__ == "__main__":  #make sure the app will be run on it's own, not as API
     
