@@ -4,6 +4,8 @@ from flask import render_template, request, redirect, url_for
 from datetime import datetime
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required
 from flask_mail import Mail
+from flask_login import current_user
+
 
 
 app = Flask(__name__)
@@ -63,20 +65,23 @@ def create():
     db.session.commit()
 
 @app.route('/')
+@login_required
 def index():
     # myClippings = Clipboard.query.all()
-    myClippings = Clipboard.query.filter_by(userId=0).all()
+    actUser= current_user.id
+    myClippings = Clipboard.query.filter_by(userId=actUser).all()
     return render_template('post.html', myClippings=myClippings)
 
 @app.route('/post', methods=['POST'])
 def post():
-    userId = 0
-    clip = Clipboard(userId,request.form['clipping'],datetime.now())
+    actUser=current_user.id
+    clip = Clipboard(actUser,request.form['clipping'],datetime.now())
     db.session.add(clip)
     db.session.commit()
     return redirect(url_for('index'))
 
 @app.route('/profile/<email>')
+@login_required
 def profile(email):
     
     user = User.query.filter_by(email=email).first()
